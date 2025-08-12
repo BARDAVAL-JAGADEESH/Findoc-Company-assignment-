@@ -12,7 +12,7 @@ class ApiClient {
       final List<dynamic> jsonList = json.decode(response.body);
       return jsonList.map((json) => Photo.fromJson(json)).toList();
     } else {
-      throw Exception('Failed to load photos');
+      throw Exception('Failed to load images');
     }
   }
 }

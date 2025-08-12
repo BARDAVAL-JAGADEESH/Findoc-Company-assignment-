@@ -28,107 +28,151 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is AuthSuccess) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
-              ),
-            );
-          } else if (state is AuthFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
-            );
-          }
-        },
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 80),
-                Text(
-                  'Welcome Back',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.center,
+      // Gradient Background
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFFBB6ADB),
+              Color(0xFF307181),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthSuccess) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomeScreen(),
                 ),
-                const SizedBox(height: 40),
-                TextFormField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.email),
+              );
+            } else if (state is AuthFailure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.error)),
+              );
+            }
+          },
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 400),
+                child: Card(
+                  elevation: 16,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
                   ),
-                  keyboardType: TextInputType.emailAddress,
-                  validator: Validators.validateEmail,
-                ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: const OutlineInputBorder(),
-                    prefixIcon: const Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _obscurePassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                  color: Colors.white.withOpacity(0.9),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 40, horizontal: 32),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            'Welcome Back to',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue[900],
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 32),
+                          TextFormField(
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              prefixIcon: const Icon(Icons.email),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide:
+                                BorderSide(color: Colors.blue[700]!, width: 2),
+                              ),
+                            ),
+                            keyboardType: TextInputType.emailAddress,
+                            validator: Validators.validateEmail,
+                          ),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            controller: _passwordController,
+                            obscureText: _obscurePassword,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              prefixIcon: const Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscurePassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscurePassword = !_obscurePassword;
+                                  });
+                                },
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide:
+                                BorderSide(color: Colors.blue[700]!, width: 2),
+                              ),
+                            ),
+                            validator: Validators.validatePassword,
+                          ),
+                          const SizedBox(height: 32),
+                          BlocBuilder<AuthBloc, AuthState>(
+                            builder: (context, state) {
+                              if (state is AuthLoading) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                              return ElevatedButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    context.read<AuthBloc>().add(
+                                      LoginEvent(
+                                        email: _emailController.text.trim(),
+                                        password: _passwordController.text.trim(),
+                                      ),
+                                    );
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue[700],
+                                  padding:
+                                  const EdgeInsets.symmetric(vertical: 16),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  textStyle: GoogleFonts.montserrat(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                child: const Text('LOGIN'),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
                     ),
                   ),
-                  obscureText: _obscurePassword,
-                  validator: Validators.validatePassword,
                 ),
-                const SizedBox(height: 24),
-                BlocBuilder<AuthBloc, AuthState>(
-                  builder: (context, state) {
-                    if (state is AuthLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    return ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          context.read<AuthBloc>().add(
-                            LoginEvent(
-                              email: _emailController.text.trim(),
-                              password: _passwordController.text.trim(),
-                            ),
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                      ),
-                      child: const Text('LOGIN'),
-                    );
-                  },
-                ),
-                const SizedBox(height: 16),
-                TextButton(
-                  onPressed: () {
-                    // Navigate to signup screen (not implemented in this example)
-                  },
-                  child: Text(
-                    'Don\'t have an account? Sign up',
-                    style: GoogleFonts.montserrat(),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),

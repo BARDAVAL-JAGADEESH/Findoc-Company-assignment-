@@ -14,11 +14,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   FutureOr<void> _onLoginEvent(LoginEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
-      // Simulate API call delay
+
       await Future.delayed(const Duration(seconds: 1));
 
-      // In a real app, you would call your authentication API here
-      // For demo purposes, we'll just validate and pretend it's successful
       emit(AuthSuccess());
     } catch (e) {
       emit(AuthFailure(error: e.toString()));
