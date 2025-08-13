@@ -5,12 +5,9 @@ A findoc company assignment .
 ## Getting Started
 
 
-- [Lab: Project Demo video Link watch it:](https://drive.google.com/file/d/16INOuFnELh_KcWw1EuzE1cumobkY1mmh/view?usp=drive_link)
-- [Cookbook: APK Link:](https://drive.google.com/file/d/1OVIK_LWXWSMLvlY8987p-pgDxNsXF-Ij/view?usp=drive_link)
+- [Link1: Project Demo video Link watch it:](https://drive.google.com/file/d/16INOuFnELh_KcWw1EuzE1cumobkY1mmh/view?usp=drive_link)
+- [Lin2: APK Link:](https://drive.google.com/file/d/1OVIK_LWXWSMLvlY8987p-pgDxNsXF-Ij/view?usp=drive_link)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 # Flutter Bloc Login App
 
 This is a simple Flutter application I built to demonstrate login functionality with form validation using Bloc, along with image fetching from an API. The app has two screens — a Login Screen and a Home Screen — and uses the [Picsum API](https://picsum.photos) to fetch and display images.
