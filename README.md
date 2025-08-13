@@ -30,7 +30,7 @@ The login screen contains:
   - Includes one number
   - Includes one special character
 
-When valid credentials are entered (see below), the app navigates to the Home Screen.
+When valid credentials are entered, the app navigates to the Home Screen.
 
 ---
 
