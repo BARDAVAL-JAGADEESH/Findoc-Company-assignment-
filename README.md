@@ -1,16 +1,64 @@
 # findoc_app
 
-A new Flutter project.
+A findoc company assignment .
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [Lab: Project Demo video Link watch it:](https://drive.google.com/file/d/16INOuFnELh_KcWw1EuzE1cumobkY1mmh/view?usp=drive_link)
+- [Cookbook: APK Link:](https://drive.google.com/file/d/1OVIK_LWXWSMLvlY8987p-pgDxNsXF-Ij/view?usp=drive_link)
 
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+# Flutter Bloc Login App
+
+This is a simple Flutter application I built to demonstrate login functionality with form validation using Bloc, along with image fetching from an API. The app has two screens — a Login Screen and a Home Screen — and uses the [Picsum API](https://picsum.photos) to fetch and display images.
+
+---
+
+## 🔐 Login Screen
+
+The login screen contains:
+- An **email** input field
+- A **password** input field
+- A **submit** button
+
+### ✅ Validation Rules:
+- **Email:** Must be in a valid email format.
+- **Password:** 
+  - At least 8 characters
+  - Includes one uppercase letter
+  - Includes one lowercase letter
+  - Includes one number
+  - Includes one special character
+
+When valid credentials are entered (see below), the app navigates to the Home Screen.
+
+---
+
+## 🏠 Home Screen
+
+Once logged in, the Home Screen displays a list of **10 random images** fetched from the [Picsum API](https://picsum.photos/v2/list).
+
+### 📋 Each list item includes:
+- The image (full screen width, maintaining aspect ratio)
+- The author name (styled using **Montserrat Semi-Bold**)
+- Image ID as description (styled with **Montserrat Regular**, dark grey, max 2 lines)
+
+---
+
+## ⚙️ Tech Used
+
+- Flutter
+- Dart
+- Bloc (for state management)
+- HTTP (for API calls)
+- Custom fonts (Montserrat)
+
+---
+
+
+
+
+
